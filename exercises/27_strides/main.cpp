@@ -19,8 +19,9 @@ std::vector<udim> strides(std::vector<udim> const &shape) {
     // READ: 逆向迭代器 std::vector::rbegin <https://zh.cppreference.com/w/cpp/container/vector/rbegin>
     //       使用逆向迭代器可能可以简化代码
     strides.back() = 1;// 最小维的步长为 1
-    for (size_t i = shape.size() - 2; i >= 0; --i) {
-        strides[i] = strides[i + 1] * shape[i + 1];
+    for (auto i = strides.rbegin() + 1; i != strides.rend(); ++i) {
+        auto index = strides.rend() - i;
+        *i = *(i - 1) * shape[index];
     }
 
     return strides;
