@@ -58,8 +58,8 @@ int main(int argc, char **argv) {
         {"fd"},
         // TODO: 分析 problems[1] 中资源的生命周期，将记录填入 `std::vector`
         //  vs 和 g++ 表现不一致
-        {"d", "ffr"},
-        {"d", "d", "r"},
+        {"ffr", "d"},
+        {"r", "d", "d"},
     };
 
     // ---- 不要修改以下代码 ----
