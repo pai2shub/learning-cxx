@@ -21,20 +21,23 @@ public:
     }
 
     // TODO: 实现移动构造器
-    DynFibonacci(DynFibonacci &&src) : cache(new size_t[src.cached]), cached(src.cached) {
-        for (int i = 0; i < cached; ++i) {
-            cache[i] = src.cache[i];
-        }
+    DynFibonacci(DynFibonacci &&other) noexcept : cache(other.cache), cached(other.cached) {
+        other.cache = nullptr;
+        other.cached = 0;
     };
 
     // TODO: 实现移动赋值
     // NOTICE: ⚠ 注意移动到自身问题 ⚠
-    DynFibonacci &operator=(DynFibonacci &&src) noexcept {
-        if (this == &src) return *this;// 防止自赋值
-        cache = std::move(src.cache);  // 转移资源
-        cached = src.cached;
+    DynFibonacci &operator=(DynFibonacci &&other) noexcept {
+        if (this == &other) return *this;// 防止自赋值
 
-        src.cached = 0;
+        delete[] cache;
+
+        cache = other.cache;
+        cached = other.cached;
+
+        other.cache = nullptr;
+        other.cached = 0;
 
         return *this;
     };
